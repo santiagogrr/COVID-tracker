@@ -1,52 +1,42 @@
 import React, {Component} from 'react';
+import Home from './components/Home/Home'
+import Map from './components/Map/Map'
 
-import { Cards, Chart, CountryPicker} from './components/';
+import { Link, BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Layout, Header, Navigation, Drawer, Content } from 'react-mdl';
+import HomeIcon from '@material-ui/icons/Home'
+import MapIcon from '@material-ui/icons/Room'
+
 import styles from './App.module.css';
-import { fetchData } from './api';
-import coronaImage from './images/image.png'
-import {Typography} from '@material-ui/core/';
 
 
 class App extends Component {
 
-  state = {
-    data: {},
-    country: '',
-  }
-
-  async componentDidMount () {
-    const fetchedData = await fetchData();
-    this.setState({
-      data: fetchedData
-    });
-  }
-
-  handleCountryChange = async (country) =>{
-    const fetchedData = await fetchData(country);
-    this.setState({
-      data: fetchedData,
-      country: country
-    });
-    console.log(fetchedData)
-  }
-
   render(){
-    const { data, country } = this.state;
     return (
       <div>
-        <div className={styles.container}>
-            <img
-              className={styles.image}
-              alt="COVID-19"
-              src={coronaImage}
-            />
-            <Cards data={data}/>
-            <CountryPicker handleCountryChange={this.handleCountryChange}/>
-            <Chart data={data} country={country}/>
-        </div>
-        <div className={styles.container2}>
-          <Typography variant="h6">Data from <a href="https://github.com/mathdroid/covid-19-api" target="_blank">MathDroid API</a></Typography>  
-        </div>
+        <BrowserRouter>
+          <Layout>
+              <Header className={styles.header} title={<Link style={{fontWeight:'500', color: 'white', fontSize: '24px'}} to="/">Home</Link> } scroll>
+                  <Navigation>
+                      <Link style={{fontSize:'24px'}} to="/map">Map</Link>
+                  </Navigation>
+              </Header>
+              <Drawer >
+                  <Navigation>
+                      <Link style={{fontSize:'24px'}} to="/"><HomeIcon style={{ fontSize: 30, paddingRight: 30 }}/>Home</Link>
+                      <Link style={{fontSize:'24px'}} to="/map"><MapIcon style={{ fontSize: 30, paddingRight: 30 }}/>Map</Link>
+                  </Navigation>
+              </Drawer>
+              <Content>
+                  <div/>
+                  <Switch>
+                    <Route exact path='/' component = {Home}/>
+                    <Route path='/map' component = {Map}/>
+                  </Switch>
+              </Content>
+          </Layout>
+        </BrowserRouter>
       </div>
     );
   }

@@ -1,0 +1,23 @@
+.container {
+    margin: 10px 0;
+    flex-direction: row;
+}
+
+.title{
+    font-family: Roboto Slab;
+    font-size: 90px
+}
+
+.icon {
+    color: rgb(131, 79, 182);
+}
+
+@media (max-width: 770px) {
+    .container {
+        margin: 0 10%;
+    }
+    .title {
+        width: 100%;
+        font-size: 8vw;
+    }
+}

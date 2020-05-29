@@ -17,7 +17,6 @@ class GoogleMap extends Component {
 		this.setState({
       countries: fetchedData
 		});
-		
   }
 
   render(){
@@ -53,7 +52,7 @@ class GoogleMap extends Component {
     return (
 			<div className={styles.container}>
 				<GoogleMapReact
-					bootstrapURLKeys={{ key: "AIzaSyCyEPF9qAFgMOwSiJttddMPXwAeYlrb2I0" }}
+					bootstrapURLKeys={{ key: process.env.REACT_APP_SECRET_KEY }}
 					defaultCenter={{lat: 23, lng: -102}}
 					defaultZoom={5}
 				>
